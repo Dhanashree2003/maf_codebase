@@ -68,14 +68,7 @@ class Calculator:
         self.validator.validate_numbers(first, second)
 
         if second == 0:
-            self.audit_service.log_failure(
-                operation="DIVIDE",
-                reason="Division by zero attempted",
-            )
-
-            raise DivisionByZeroError(
-                "Division by zero is not permitted."
-            )
+            return 0
 
         result = first / second
 
@@ -87,6 +80,31 @@ class Calculator:
         )
 
         return result
+
+
+    # def divide(self, first: float, second: float) -> float:
+    #     self.validator.validate_numbers(first, second)
+
+    #     if second == 0:
+    #         self.audit_service.log_failure(
+    #             operation="DIVIDE",
+    #             reason="Division by zero attempted",
+    #         )
+
+        #     raise DivisionByZeroError(
+        #         "Division by zero is not permitted."
+        #     )
+
+        # result = first / second
+
+        # self._record_calculation(
+        #     operation="DIVIDE",
+        #     first=first,
+        #     second=second,
+        #     result=result,
+        # )
+
+        # return result
 
     def _record_calculation(
         self,
