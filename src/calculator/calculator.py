@@ -64,11 +64,36 @@ class Calculator:
 
         return result
 
+    # def divide(self, first: float, second: float) -> float:
+    #     self.validator.validate_numbers(first, second)
+
+    #     if second == 0:
+    #         return 0
+
+    #     result = first / second
+
+    #     self._record_calculation(
+    #         operation="DIVIDE",
+    #         first=first,
+    #         second=second,
+    #         result=result,
+    #     )
+
+    #     return result
+
+
     def divide(self, first: float, second: float) -> float:
         self.validator.validate_numbers(first, second)
 
         if second == 0:
-            return 0
+            self.audit_service.log_failure(
+                operation="DIVIDE",
+                reason="Division by zero attempted",
+            )
+
+            raise DivisionByZeroError(
+                "Division by zero is not permitted."
+            )
 
         result = first / second
 
@@ -81,30 +106,19 @@ class Calculator:
 
         return result
 
+    def percentage(self, value: float, percentage: float) -> float:
+        self.validator.validate_numbers(value, percentage)
 
-    # def divide(self, first: float, second: float) -> float:
-    #     self.validator.validate_numbers(first, second)
+        result = (value * percentage) / 100
 
-    #     if second == 0:
-    #         self.audit_service.log_failure(
-    #             operation="DIVIDE",
-    #             reason="Division by zero attempted",
-    #         )
+        self._record_calculation(
+            operation="PERCENTAGE",
+            first=value,
+            second=percentage,
+            result=result,
+        )
 
-        #     raise DivisionByZeroError(
-        #         "Division by zero is not permitted."
-        #     )
-
-        # result = first / second
-
-        # self._record_calculation(
-        #     operation="DIVIDE",
-        #     first=first,
-        #     second=second,
-        #     result=result,
-        # )
-
-        # return result
+        return result
 
     def _record_calculation(
         self,
