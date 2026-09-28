@@ -64,6 +64,24 @@ class Calculator:
 
         return result
 
+    # def divide(self, first: float, second: float) -> float:
+    #     self.validator.validate_numbers(first, second)
+
+    #     if second == 0:
+    #         return 0
+
+    #     result = first / second
+
+    #     self._record_calculation(
+    #         operation="DIVIDE",
+    #         first=first,
+    #         second=second,
+    #         result=result,
+    #     )
+
+    #     return result
+
+
     def divide(self, first: float, second: float) -> float:
         self.validator.validate_numbers(first, second)
 
@@ -83,6 +101,20 @@ class Calculator:
             operation="DIVIDE",
             first=first,
             second=second,
+            result=result,
+        )
+
+        return result
+
+    def percentage(self, value: float, percentage: float) -> float:
+        self.validator.validate_numbers(value, percentage)
+
+        result = (value * percentage) / 100
+
+        self._record_calculation(
+            operation="PERCENTAGE",
+            first=value,
+            second=percentage,
             result=result,
         )
 
